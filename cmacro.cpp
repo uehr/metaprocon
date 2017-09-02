@@ -110,29 +110,34 @@ using namespace std;
 #define debug_echo(e) cout << "L" << __LINE__ << ": " << e << endl
 #define debug_var(...) cout << "L" << __LINE__ << ": " pp_foreach(debug_var_elem, __VA_ARGS__) << endl
 #define debug_ary(ary) cout << "L" << __LINE__ << " [ "; for(auto ele : ary) cout << ele << " "; cout << "]" << endl;
+#define debug_time(...) {auto start = clock(); __VA_ARGS__ ;auto end = clock();cout << (double)(end - start) << "ms" << endl;} 
 #else
 #define debug_echo(e)
 #define debug_var(...)
 #define debug_ary(ary)
+#define debug_time(...)
 #endif
 
 // short names
 typedef long long ll;
-#define down_queue(x) priority_queue<x>
-#define up_queue(x) priority_queue<x, vector<x>, greater<x>>
-ll gcd(ll a,ll b){while(b){ll tmp = a % b;a = b;b = tmp;}return a;}
-ll lcm(ll a,ll b){return a / gcd(a,b) * b;}
+#define down_queue(...) priority_queue<__VA_ARGS__>
+#define up_queue(...) priority_queue<__VA_ARGS__, vector<__VA_ARGS__>, greater<__VA_ARGS__>>
 #define all(x) x.begin(), x.end()
+#define rall(x) x.begin(), x.end(), greater<int>()
 #define split_str(str, sp_word) istringstream stream(str); string res; for(int cnt = 0; getline(stream,res,sp_word); cnt++)
 #define digit(x) ((int)log10((double)(x)) + 1)
-#define mp(x,y) make_pair(x,y)
-#define pb(x) push_back(x)
-#define pf(x) push_front(x)
+#define mp(...) make_pair(__VA_ARGS__)
+#define pb(...) push_back(__VA_ARGS__)
+#define pf(...) push_front(__VA_ARGS__)
 vector<int> digit_split(int n){vector<int> result(digit(n));for(int i = 0; n; i++){result[i] = n % 10;n /= 10;}return result;}
-#define time(content) {auto start = clock();content;auto end = clock();cout << (double)(end - start) << "ms" << endl;} 
 #define vec_cpy(to,from) copy(all(to),back_inserter(from))
 #define ary_cpy(to,from) memcpy(to, from, sizeof(from))
 #define MOD 1000000007 
+
+// math
+ll gcd(ll a,ll b){while(b){ll tmp = a % b;a = b;b = tmp;}return a;}
+ll lcm(ll a,ll b){return a / gcd(a,b) * b;}
+bool is_prime(ll n){switch(n){case 0:case 1: return false;case 2: return true;}if(n % 2 == 0) return false;for(ll i=3;i * i <= n; i += 2)if(n%i == 0) return false;return true;}
 
 // pp unionfind
 #define pp_gen_field(list) pp_gen_field1 list
@@ -198,8 +203,4 @@ vector<int> digit_split(int n){vector<int> result(digit(n));for(int i = 0; n; i+
       return find(x).parent == find(y).parent; \
     } \
   }
-
-//
-// Implementation
-//
 
